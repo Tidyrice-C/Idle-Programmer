@@ -3,15 +3,21 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [System.Serializable]
-public class SaveData : MonoBehaviour
+public class SaveData
 {
 
-    private double money;
-    private int levelOne;
+    public double money;
+
+    public int levelOne;
+    public bool isRunningOne;
+    public double timeWhenStartOne;
 
     public SaveData (Money moneyClass, ONE one)
     {
         money = moneyClass.money;
+
         levelOne = one.level;
+        isRunningOne = one.isRunning;
+        timeWhenStartOne = one.timeWhenStart;
     }
 }

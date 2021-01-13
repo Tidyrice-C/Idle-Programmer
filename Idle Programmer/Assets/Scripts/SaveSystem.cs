@@ -9,13 +9,15 @@ public class SaveSystem : MonoBehaviour
     {
         string path = Application.persistentDataPath + "/data.json";
         FileStream stream = new FileStream(path, FileMode.Create);
-
         SaveData saveData = new SaveData(money, one);
 
         string data = JsonUtility.ToJson(saveData);
-        File.WriteAllText(path, data);
 
-        Debug.Log(data);
+        using (StreamWriter writer = new StreamWriter(stream))
+        {
+            writer.Write(data);
+        }
+
         stream.Close();
     }
 
@@ -24,14 +26,23 @@ public class SaveSystem : MonoBehaviour
         string path = Application.persistentDataPath + "/data.json";
         if (File.Exists(path))
         {
-            FileStream stream = new FileStream(path, FileMode.Open);
+            using (StreamReader reader = new StreamReader(path))
+            {
+                string dataJSON = reader.ReadToEnd();
 
-            string dataJSON = File.ReadAllText(path);
+                SaveData data;
 
-            SaveData data = JsonUtility.FromJson<SaveData>(dataJSON);
-            stream.Close();
-
-            return data;
+                try
+                {
+                    data = JsonUtility.FromJson<SaveData>(dataJSON);
+                }
+                catch 
+                {
+                    Debug.Log("Error in try block in script SaveSystem");
+                    return null;
+                }
+                return data;
+            }
         }
         else
         {

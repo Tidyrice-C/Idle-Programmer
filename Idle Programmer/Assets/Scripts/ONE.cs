@@ -11,19 +11,28 @@ public class ONE : MonoBehaviour
     public GameObject sliderObject;
     private Slider slider;
 
-    private bool isRunning = false;
-    private double currentTime;
-    private double timeWhenStart;
-    public int level;
-
     public Money money;
+
+    private double currentTime;
+    [HideInInspector] public bool isRunning = false;
+    [HideInInspector] public double timeWhenStart;
+    [HideInInspector] public int level;
 
     // Start is called before the first frame update
     void Start()
     {
         button = gameObject.GetComponent<Button>();
         slider = sliderObject.GetComponent<Slider>();
-        level = 1;
+
+        if (SaveTimer.saveData == null)
+        {
+            level = 1;
+            return;
+        }
+
+        level = SaveTimer.saveData.levelOne;
+        isRunning = SaveTimer.saveData.isRunningOne;
+        timeWhenStart = SaveTimer.saveData.timeWhenStartOne;
     }
 
     void Update()

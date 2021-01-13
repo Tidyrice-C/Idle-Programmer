@@ -7,8 +7,15 @@ public class SaveTimer : MonoBehaviour
     private double currentTime;
     private double lastSavedTime;
 
+    public static SaveData saveData;
+
     public Money money;
     public ONE one;
+
+    private void Awake()
+    {
+        saveData = SaveSystem.LoadData();
+    }
 
     // Start is called before the first frame update
     void Start()
@@ -24,7 +31,7 @@ public class SaveTimer : MonoBehaviour
     {
         currentTime = CanvasTime.GetUnixTime();
 
-        if (currentTime - lastSavedTime < 5000)
+        if (currentTime - lastSavedTime < 1000)
             return;
 
         //else
