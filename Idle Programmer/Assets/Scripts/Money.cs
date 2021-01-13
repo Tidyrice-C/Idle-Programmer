@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class Money : MonoBehaviour
 {
-    public double money = 0;
+    public double money = 0.00;
     private TMPro.TextMeshProUGUI text;
 
     // Start is called before the first frame update
@@ -17,6 +17,6 @@ public class Money : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        text.text = "Money: " + money;
+        text.text = $"Money: ${money}";
     }
 }

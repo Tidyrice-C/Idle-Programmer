@@ -11,10 +11,10 @@ public class ONE : MonoBehaviour
     public GameObject sliderObject;
     private Slider slider;
 
-    private float sliderMaxValue;
     private bool isRunning = false;
-    private int currentTime;
-    private int timeWhenStart;
+    private double currentTime;
+    private double timeWhenStart;
+    public int level;
 
     public Money money;
 
@@ -23,7 +23,7 @@ public class ONE : MonoBehaviour
     {
         button = gameObject.GetComponent<Button>();
         slider = sliderObject.GetComponent<Slider>();
-        sliderMaxValue = slider.maxValue;
+        level = 1;
     }
 
     void Update()
@@ -37,17 +37,17 @@ public class ONE : MonoBehaviour
         //else if ISRUNNING = true then DO THIS
         currentTime = CanvasTime.GetUnixTime();
 
-        int timeDifference = currentTime - timeWhenStart;
+        double timeDifference = currentTime - timeWhenStart;
 
-        if (slider.value >= sliderMaxValue)
+        if (slider.value >= slider.maxValue)
         {
             isRunning = false;
-            money.money += 5;
+            money.money += 1 * level;
             return;
         }
 
         //else (slider increments)
-        slider.value = timeDifference * 0.05f;
+        slider.value = (float) (timeDifference * 0.05);
     }
 
 

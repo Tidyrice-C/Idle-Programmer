@@ -6,9 +6,9 @@ using System;
 public class CanvasTime : MonoBehaviour
 { 
 
-    public static int GetUnixTime()
+    public static double GetUnixTime()
     {
-        return (int)(System.DateTime.Now - new DateTime(2020, 1, 1)).TotalSeconds;
+        return (double)(System.DateTime.Now - new DateTime(2020, 1, 1)).TotalMilliseconds;
     }
 
 }
