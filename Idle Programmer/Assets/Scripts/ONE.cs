@@ -11,6 +11,9 @@ public class ONE : MonoBehaviour
     public GameObject sliderObject;
     private Slider slider;
 
+    public TMPro.TextMeshProUGUI levelText;
+    public TMPro.TextMeshProUGUI upgradeText;
+
     public Money money;
 
     private double currentTime;
@@ -37,6 +40,17 @@ public class ONE : MonoBehaviour
 
     void Update()
     {
+        levelText.text = (level.ToString());
+
+        if (level < 10000 && 3.69 * System.Math.Pow(1.07, level - 1) <= 9999.99)
+            upgradeText.text = $"Buy: {3.69 * System.Math.Pow(1.07, level - 1):C}";
+
+        else if (level < 10000 && 3.69 * System.Math.Pow(1.07, level - 1) > 9999.99)
+            upgradeText.text = $"Buy: ${3.69 * System.Math.Pow(1.07, level - 1):E}";
+
+        else //level must be = 10000
+            upgradeText.text = "Max Level";
+
         if (!isRunning)
         {
             slider.value = 0;
@@ -68,6 +82,18 @@ public class ONE : MonoBehaviour
         //else
         isRunning = true;
         timeWhenStart = CanvasTime.GetUnixTime();
+    }
+
+    public void onBuy()
+    {
+        if (level >= 10000)
+            return;
+
+        if (money.money - (3.69 * System.Math.Pow(1.07, level - 1)) < 0)
+            return;
+
+        money.money = money.money - (3.69 * System.Math.Pow(1.07, level - 1));
+        level++;
     }
     
 }

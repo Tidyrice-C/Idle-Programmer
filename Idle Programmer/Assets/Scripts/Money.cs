@@ -25,6 +25,12 @@ public class Money : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        text.text = $"Money: ${money}";
+        money = System.Math.Round(money, 2);
+
+        if (money <= 999999999999.99)
+            text.text = $"Money: {money:C}";
+
+        else
+            text.text = $"Money: ${money:E}";
     }
 }
