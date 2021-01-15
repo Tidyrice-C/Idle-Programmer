@@ -3,8 +3,6 @@ using System.IO;
 
 public class SaveSystem : MonoBehaviour
 {
-
-
     public static void SaveAll (Money money, ONE one)
     {
         string path = Application.persistentDataPath + "/data.json";

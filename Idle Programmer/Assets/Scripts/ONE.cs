@@ -13,6 +13,7 @@ public class ONE : MonoBehaviour
     public TMPro.TextMeshProUGUI levelText;
     public TMPro.TextMeshProUGUI upgradeText;
     public TMPro.TextMeshProUGUI timeText;
+    public TMPro.TextMeshProUGUI profitText;
 
     public Money money;
 
@@ -34,17 +35,18 @@ public class ONE : MonoBehaviour
         if (SaveTimer.saveData == null)
         {
             level = 1;
-            return;
         }
-
-        level = SaveTimer.saveData.levelOne;
-        isRunning = SaveTimer.saveData.isRunningOne;
-        timeWhenStart = SaveTimer.saveData.timeWhenStartOne;
+        else
+        {
+            level = SaveTimer.saveData.levelOne;
+            isRunning = SaveTimer.saveData.isRunningOne;
+            timeWhenStart = SaveTimer.saveData.timeWhenStartOne;
+        }
 
         //figuring out time modifier based on level
         int i = level;
         int timesExecuted = 0;
-        while (i > 1)
+        while (i >= 1)
         {
             //first time, do this
             if (timesExecuted == 0)
@@ -58,7 +60,7 @@ public class ONE : MonoBehaviour
                 timesExecuted++;
             }
         }
-        timesExecuted--;
+            timesExecuted--;
         timeModifier = 0.05f * Mathf.Pow(2, timesExecuted);
 
         //upgrade price text
@@ -76,10 +78,16 @@ public class ONE : MonoBehaviour
             upgradeButton.interactable = false;
             upgradeText.text = "Max Level";
         }
+
+        if (1 * level < 999999999.99)
+            profitText.text = $"{1 * level:C}";
+        else
+            profitText.text = $"${1 * level:E}";
     }
 
     void Update()
     {
+        Debug.Log(timeModifier);
         if (money.money >= upgradePrice)
             upgradeButton.interactable = true;
         else
@@ -117,7 +125,6 @@ public class ONE : MonoBehaviour
         timeText.text = $"{hours.PadLeft(2, '0')}:{minutes.PadLeft(2, '0')}:{seconds.PadLeft(2, '0')}";
     }
 
-
     //executes when image is clicked
     public void onClick()
     {
@@ -143,7 +150,7 @@ public class ONE : MonoBehaviour
         //figuring out time modifier based on level
         int i = level;
         int timesExecuted = 0;
-        while (i > 1)
+        while (i >= 1)
         {
             //first time, do this
             if (timesExecuted == 0)
@@ -157,6 +164,7 @@ public class ONE : MonoBehaviour
                 timesExecuted++;
             }
         }
+            timesExecuted--;
         timeModifier = 0.05f * Mathf.Pow(2, timesExecuted);
 
         upgradePrice = 3.69 * System.Math.Pow(1.07, level - 1);
@@ -173,6 +181,11 @@ public class ONE : MonoBehaviour
             upgradeButton.interactable = false;
             upgradeText.text = "Max Level";
         }
+
+        if (1 * level < 999999999.99)
+            profitText.text = $"{1 * level:C}";
+        else
+            profitText.text = $"${1 * level:E}";
     }
     
 }
