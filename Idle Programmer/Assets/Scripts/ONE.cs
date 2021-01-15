@@ -23,6 +23,11 @@ public class ONE : MonoBehaviour
 
     private float timeModifier;
 
+    private readonly float basePrice = 3.69f;
+    private readonly float levelOneTimeModifier = 0.2f;
+    private readonly float priceIncreaseModifier = 1.07f;
+    private readonly float profitPerUnit = 1.00f;
+
     [HideInInspector] public bool isRunning = false;
     [HideInInspector] public double timeWhenStart;
     [HideInInspector] public int level;
@@ -61,16 +66,16 @@ public class ONE : MonoBehaviour
             }
         }
             timesExecuted--;
-        timeModifier = 0.05f * Mathf.Pow(2, timesExecuted);
+        timeModifier = levelOneTimeModifier * Mathf.Pow(2, timesExecuted);
 
         //upgrade price text
-        upgradePrice = 3.69 * System.Math.Pow(1.07, level - 1);
+        upgradePrice = basePrice * System.Math.Pow(priceIncreaseModifier, level);
         levelText.text = (level.ToString());
 
-        if (level < 10000 && upgradePrice <= 9999.99)
+        if (level < 10000 && upgradePrice <= 999999.99)
             upgradeText.text = $"Buy: {upgradePrice:C}";
 
-        else if (level < 10000 && upgradePrice > 9999.99)
+        else if (level < 10000 && upgradePrice > 999999.99)
             upgradeText.text = $"Buy: ${upgradePrice:E}";
 
         else //level must be = 10000
@@ -79,15 +84,14 @@ public class ONE : MonoBehaviour
             upgradeText.text = "Max Level";
         }
 
-        if (1 * level < 999999999.99)
-            profitText.text = $"{1 * level:C}";
+        if (profitPerUnit * level < 999999999.99)
+            profitText.text = $"{profitPerUnit * level:C}";
         else
-            profitText.text = $"${1 * level:E}";
+            profitText.text = $"${profitPerUnit * level:E}";
     }
 
     void Update()
     {
-        Debug.Log(timeModifier);
         if (money.money >= upgradePrice)
             upgradeButton.interactable = true;
         else
@@ -108,7 +112,7 @@ public class ONE : MonoBehaviour
         if (slider.value >= slider.maxValue)
         {
             isRunning = false;
-            money.money += 1 * level;
+            money.money += profitPerUnit * level;
         }
 
         else if (slider.value < slider.maxValue)
@@ -141,10 +145,10 @@ public class ONE : MonoBehaviour
         if (level >= 10000)
             return;
 
-        if (money.money - (3.69 * System.Math.Pow(1.07, level - 1)) < 0)
+        if (money.money - (basePrice * System.Math.Pow(priceIncreaseModifier, level)) < 0)
             return;
 
-        money.money -= (3.69 * System.Math.Pow(1.07, level - 1));
+        money.money -= (basePrice * System.Math.Pow(priceIncreaseModifier, level));
         level++;
 
         //figuring out time modifier based on level
@@ -165,15 +169,15 @@ public class ONE : MonoBehaviour
             }
         }
             timesExecuted--;
-        timeModifier = 0.05f * Mathf.Pow(2, timesExecuted);
+        timeModifier = levelOneTimeModifier * Mathf.Pow(2, timesExecuted);
 
-        upgradePrice = 3.69 * System.Math.Pow(1.07, level - 1);
+        upgradePrice = basePrice * System.Math.Pow(priceIncreaseModifier, level);
         levelText.text = (level.ToString());
 
-        if (level < 10000 && upgradePrice <= 9999.99)
+        if (level < 10000 && upgradePrice <= 999999.99)
             upgradeText.text = $"Buy: {upgradePrice:C}";
 
-        else if (level < 10000 && upgradePrice > 9999.99)
+        else if (level < 10000 && upgradePrice > 999999.99)
             upgradeText.text = $"Buy: ${upgradePrice:E}";
 
         else //level must be = 10000
@@ -182,10 +186,10 @@ public class ONE : MonoBehaviour
             upgradeText.text = "Max Level";
         }
 
-        if (1 * level < 999999999.99)
-            profitText.text = $"{1 * level:C}";
+        if (profitPerUnit * level < 999999999.99)
+            profitText.text = $"{profitPerUnit * level:C}";
         else
-            profitText.text = $"${1 * level:E}";
+            profitText.text = $"${profitPerUnit * level:E}";
     }
     
 }

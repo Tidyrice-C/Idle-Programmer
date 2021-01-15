@@ -11,6 +11,8 @@ public class SaveTimer : MonoBehaviour
 
     public Money money;
     public ONE one;
+    public TWO two;
+    public THREE three;
 
     private void Awake()
     {
@@ -36,6 +38,6 @@ public class SaveTimer : MonoBehaviour
 
         //else
         lastSavedTime = currentTime;
-        SaveSystem.SaveAll(money, one);
+        SaveSystem.SaveAll(money, one, two, three);
     }
 }

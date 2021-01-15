@@ -3,11 +3,11 @@ using System.IO;
 
 public class SaveSystem : MonoBehaviour
 {
-    public static void SaveAll (Money money, ONE one)
+    public static void SaveAll (Money money, ONE one, TWO two, THREE three)
     {
         string path = Application.persistentDataPath + "/data.json";
         FileStream stream = new FileStream(path, FileMode.Create);
-        SaveData saveData = new SaveData(money, one);
+        SaveData saveData = new SaveData(money, one, two, three);
 
         string data = JsonUtility.ToJson(saveData);
 
