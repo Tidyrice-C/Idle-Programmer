@@ -3,13 +3,13 @@ using System.IO;
 
 public class SaveSystem : MonoBehaviour
 {
-    public static void SaveAll (Money money, ONE one, TWO two, THREE three)
+    public static void SaveAll (Money money, ONE one, TWO two, THREE three, FOUR four)
     {
         string path = Application.persistentDataPath + "/data.json";
         FileStream stream = new FileStream(path, FileMode.Create);
-        SaveData saveData = new SaveData(money, one, two, three);
+        SaveData saveData = new SaveData(money, one, two, three, four);
 
-        string data = JsonUtility.ToJson(saveData);
+        string data = JsonUtility.ToJson(saveData, true);
 
         using (StreamWriter writer = new StreamWriter(stream))
         {

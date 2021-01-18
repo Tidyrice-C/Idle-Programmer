@@ -21,16 +21,15 @@ public class ONE : MonoBehaviour
     private double upgradePrice;
     private double toComplete;
 
-    private float timeModifier;
-
-    private readonly float basePrice = 3.69f;
-    private readonly float levelOneTimeModifier = 0.2f;
+    private readonly float basePrice = 3.64f;
+    private readonly float levelOneTimeModifier = 0.1f;
     private readonly float priceIncreaseModifier = 1.07f;
     private readonly float profitPerUnit = 1.00f;
 
     [HideInInspector] public bool isRunning = false;
     [HideInInspector] public double timeWhenStart;
     [HideInInspector] public int level;
+    [HideInInspector] public float timeModifier;
 
     // Start is called before the first frame update
     void Start()
@@ -40,48 +39,33 @@ public class ONE : MonoBehaviour
         if (SaveTimer.saveData == null)
         {
             level = 1;
+            timeModifier = levelOneTimeModifier;
         }
         else
         {
             level = SaveTimer.saveData.levelOne;
             isRunning = SaveTimer.saveData.isRunningOne;
             timeWhenStart = SaveTimer.saveData.timeWhenStartOne;
+            timeModifier = SaveTimer.saveData.timeModifierOne;
         }
 
         //figuring out time modifier based on level
-        int i = level;
-        int timesExecuted = 0;
-        while (i >= 1)
-        {
-            //first time, do this
-            if (timesExecuted == 0)
-            {
-                i /= 25;
-                timesExecuted++;
-            }
-            else
-            {
-                i /= 2;
-                timesExecuted++;
-            }
-        }
-            timesExecuted--;
-        timeModifier = levelOneTimeModifier * Mathf.Pow(2, timesExecuted);
+        toComplete = timeWhenStart + 100 / timeModifier;
 
         //upgrade price text
         upgradePrice = basePrice * System.Math.Pow(priceIncreaseModifier, level);
         levelText.text = (level.ToString());
 
-        if (level < 10000 && upgradePrice <= 999999.99)
+        if (level < 51200 && upgradePrice <= 999999999.99)
             upgradeText.text = $"Buy: {upgradePrice:C}";
 
-        else if (level < 10000 && upgradePrice > 999999.99)
+        else if (level < 51200 && upgradePrice > 999999999.99)
             upgradeText.text = $"Buy: ${upgradePrice:E}";
 
-        else //level must be = 10000
+        else //level must be = 51200
         {
             upgradeButton.interactable = false;
-            upgradeText.text = "Max Level";
+            upgradeText.text = "Max";
         }
 
         if (profitPerUnit * level < 999999999.99)
@@ -105,7 +89,7 @@ public class ONE : MonoBehaviour
         }
 
         //else if ISRUNNING = true then DO THIS
-        currentTime = CanvasTime.GetUnixTime();
+        currentTime = CanvasTime.unixTime;
 
         double timeDifference = currentTime - timeWhenStart;
 
@@ -120,13 +104,14 @@ public class ONE : MonoBehaviour
 
         double timeRemaining = toComplete - currentTime;
 
-        if (timeRemaining <= 0)
-            return;
-
-        string hours = System.Math.Floor(timeRemaining / 3600000).ToString();
-        string minutes = System.Math.Floor(timeRemaining % 3600000 / 60000).ToString();
-        string seconds = System.Math.Ceiling(timeRemaining % 3600000 % 60000 / 1000).ToString();
-        timeText.text = $"{hours.PadLeft(2, '0')}:{minutes.PadLeft(2, '0')}:{seconds.PadLeft(2, '0')}";
+        //executes three times every second (60 frames = 1 second)
+        if (timeRemaining > 0 && Time.frameCount % 10 == 0)
+        {
+            string hours = System.Math.Floor(timeRemaining / 3600000).ToString();
+            string minutes = System.Math.Floor(timeRemaining % 3600000 / 60000).ToString();
+            string seconds = System.Math.Ceiling(timeRemaining % 3600000 % 60000 / 1000).ToString();
+            timeText.text = $"{hours.PadLeft(2, '0')}:{minutes.PadLeft(2, '0')}:{seconds.PadLeft(2, '0')}";
+        }
     }
 
     //executes when image is clicked
@@ -136,13 +121,13 @@ public class ONE : MonoBehaviour
             return;
         //else
         isRunning = true;
-        timeWhenStart = CanvasTime.GetUnixTime();
+        timeWhenStart = CanvasTime.unixTime;
         toComplete = timeWhenStart + 100 / timeModifier;
     }
 
     public void onBuy()
     {
-        if (level >= 10000)
+        if (level >= 51200)
             return;
 
         if (money.money - (basePrice * System.Math.Pow(priceIncreaseModifier, level)) < 0)
@@ -152,38 +137,25 @@ public class ONE : MonoBehaviour
         level++;
 
         //figuring out time modifier based on level
-        int i = level;
-        int timesExecuted = 0;
-        while (i >= 1)
-        {
-            //first time, do this
-            if (timesExecuted == 0)
-            {
-                i /= 25;
-                timesExecuted++;
-            }
-            else
-            {
-                i /= 2;
-                timesExecuted++;
-            }
-        }
-            timesExecuted--;
-        timeModifier = levelOneTimeModifier * Mathf.Pow(2, timesExecuted);
+        if (System.Array.IndexOf(CanvasTime.timesTwoLevels, level) != -1)
+            timeModifier *= 2;
+
+        toComplete = timeWhenStart + 100 / timeModifier;
+
 
         upgradePrice = basePrice * System.Math.Pow(priceIncreaseModifier, level);
         levelText.text = (level.ToString());
 
-        if (level < 10000 && upgradePrice <= 999999.99)
+        if (level < 51200 && upgradePrice <= 999999999.99)
             upgradeText.text = $"Buy: {upgradePrice:C}";
 
-        else if (level < 10000 && upgradePrice > 999999.99)
+        else if (level < 51200 && upgradePrice > 999999999.99)
             upgradeText.text = $"Buy: ${upgradePrice:E}";
 
-        else //level must be = 10000
+        else //level must be = 51200
         {
             upgradeButton.interactable = false;
-            upgradeText.text = "Max Level";
+            upgradeText.text = "Max";
         }
 
         if (profitPerUnit * level < 999999999.99)
