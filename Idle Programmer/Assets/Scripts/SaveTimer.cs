@@ -9,7 +9,6 @@ public class SaveTimer : MonoBehaviour
 
     public static SaveData saveData;
 
-    public Money money;
     public ONE one;
     public TWO two;
     public THREE three;
@@ -41,6 +40,6 @@ public class SaveTimer : MonoBehaviour
 
         //else
         lastSavedTime = currentTime;
-        SaveSystem.SaveAll(money, one, two, three, four);
+        SaveSystem.SaveAll(one, two, three, four);
     }
 }

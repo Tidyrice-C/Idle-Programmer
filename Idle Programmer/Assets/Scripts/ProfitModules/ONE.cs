@@ -3,11 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class FOUR : MonoBehaviour
+public class ONE : MonoBehaviour
 {
     public GameObject sliderObject;
     private Slider slider;
-    private Button button;
 
     public Button upgradeButton;
 
@@ -16,16 +15,14 @@ public class FOUR : MonoBehaviour
     public TMPro.TextMeshProUGUI timeText;
     public TMPro.TextMeshProUGUI profitText;
 
-    public Money money;
-
     private double currentTime;
     private double upgradePrice;
     private double toComplete;
 
-    private readonly float basePrice = 342069f;
-    private readonly float levelOneTimeModifier = 1 / 1200f;
-    private readonly float priceIncreaseModifier = 1.13f;
-    private readonly float profitPerUnit = 342069f;
+    private readonly float basePrice = 3.64f;
+    private readonly float levelOneTimeModifier = 0.1f;
+    private readonly float priceIncreaseModifier = 1.07f;
+    private readonly float profitPerUnit = 1.00f;
 
     [HideInInspector] public bool isRunning = false;
     [HideInInspector] public double timeWhenStart;
@@ -36,23 +33,19 @@ public class FOUR : MonoBehaviour
     void Start()
     {
         slider = sliderObject.GetComponent<Slider>();
-        button = GetComponent<Button>();
 
         if (SaveTimer.saveData == null)
         {
-            level = 0;
+            level = 1;
             timeModifier = levelOneTimeModifier;
         }
         else
         {
-            level = SaveTimer.saveData.levelFour;
-            isRunning = SaveTimer.saveData.isRunningFour;
-            timeWhenStart = SaveTimer.saveData.timeWhenStartFour;
-            timeModifier = SaveTimer.saveData.timeModifierFour;
+            level = SaveTimer.saveData.levelOne;
+            isRunning = SaveTimer.saveData.isRunningOne;
+            timeWhenStart = SaveTimer.saveData.timeWhenStartOne;
+            timeModifier = SaveTimer.saveData.timeModifierOne;
         }
-
-        if (level == 0)
-            button.interactable = false;
 
         //figuring out time modifier based on level
         toComplete = timeWhenStart + 100 / timeModifier;
@@ -81,7 +74,7 @@ public class FOUR : MonoBehaviour
 
     void Update()
     {
-        if (money.money >= upgradePrice)
+        if (Money.money >= upgradePrice)
             upgradeButton.interactable = true;
         else
             upgradeButton.interactable = false;
@@ -101,11 +94,11 @@ public class FOUR : MonoBehaviour
         if (slider.value >= slider.maxValue)
         {
             isRunning = false;
-            money.money += profitPerUnit * level;
+            Money.money += profitPerUnit * level;
         }
 
         else if (slider.value < slider.maxValue)
-            slider.value = (float)(timeDifference * timeModifier);
+            slider.value = (float) (timeDifference * timeModifier);
 
         double timeRemaining = toComplete - currentTime;
 
@@ -135,14 +128,11 @@ public class FOUR : MonoBehaviour
         if (level >= 51200)
             return;
 
-        if (money.money - (basePrice * System.Math.Pow(priceIncreaseModifier, level)) < 0)
+        if (Money.money - (basePrice * System.Math.Pow(priceIncreaseModifier, level)) < 0)
             return;
 
-        money.money -= (basePrice * System.Math.Pow(priceIncreaseModifier, level));
+        Money.money -= (basePrice * System.Math.Pow(priceIncreaseModifier, level));
         level++;
-
-        if (level == 1)
-            button.interactable = true;
 
         //figuring out time modifier based on level
         if (System.Array.IndexOf(CanvasTime.timesTwoLevels, level) != -1)
@@ -171,5 +161,5 @@ public class FOUR : MonoBehaviour
         else
             profitText.text = $"${profitPerUnit * level:E}";
     }
-
+    
 }

@@ -7,7 +7,7 @@ public class LevelLoader : MonoBehaviour
 {
     public Animator transition;
     private CanvasGroup canvasGroup;
-    public float transitionTime = 1f;
+    public float transitionTime = 0.5f;
 
     private void Awake()
     {
@@ -15,14 +15,12 @@ public class LevelLoader : MonoBehaviour
 
         for (int i = 0; i < doNotDestroy.Length; i++)
         DontDestroyOnLoad(doNotDestroy[i]);
-
-
     }
 
     private void Start()
     {
         canvasGroup = GetComponent<CanvasGroup>();
-        canvasGroup.interactable = false;
+        canvasGroup.blocksRaycasts = false;
     }
     public void LoadLevel(int levelIndex)
     {
@@ -31,8 +29,8 @@ public class LevelLoader : MonoBehaviour
 
     public IEnumerator Loadlevel(int levelIndex)
     {
+        canvasGroup.blocksRaycasts = true;
         transition.SetTrigger("Start");
-        canvasGroup.interactable = true;
 
         yield return new WaitForSeconds(transitionTime);
 

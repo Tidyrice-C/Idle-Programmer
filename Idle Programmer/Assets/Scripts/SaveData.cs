@@ -28,9 +28,9 @@ public class SaveData
     public double timeWhenStartFour;
     public float timeModifierFour;
 
-    public SaveData (Money moneyClass, ONE one, TWO two, THREE three, FOUR four)
+    public SaveData (ONE one, TWO two, THREE three, FOUR four)
     {
-        money = moneyClass.money;
+        money = Money.money;
 
         levelOne = one.level;
         isRunningOne = one.isRunning;

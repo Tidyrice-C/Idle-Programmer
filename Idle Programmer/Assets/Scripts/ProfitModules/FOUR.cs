@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class THREE : MonoBehaviour
+public class FOUR : MonoBehaviour
 {
     public GameObject sliderObject;
     private Slider slider;
@@ -16,16 +16,14 @@ public class THREE : MonoBehaviour
     public TMPro.TextMeshProUGUI timeText;
     public TMPro.TextMeshProUGUI profitText;
 
-    public Money money;
-
     private double currentTime;
     private double upgradePrice;
     private double toComplete;
 
-    private readonly float basePrice = 12064f;
-    private readonly float levelOneTimeModifier = 1 / 300f;
-    private readonly float priceIncreaseModifier = 1.15f;
-    private readonly float profitPerUnit = 9048f;
+    private readonly float basePrice = 342069f;
+    private readonly float levelOneTimeModifier = 1 / 1200f;
+    private readonly float priceIncreaseModifier = 1.13f;
+    private readonly float profitPerUnit = 342069f;
 
     [HideInInspector] public bool isRunning = false;
     [HideInInspector] public double timeWhenStart;
@@ -45,10 +43,10 @@ public class THREE : MonoBehaviour
         }
         else
         {
-            level = SaveTimer.saveData.levelThree;
-            isRunning = SaveTimer.saveData.isRunningThree;
-            timeWhenStart = SaveTimer.saveData.timeWhenStartThree;
-            timeModifier = SaveTimer.saveData.timeModifierThree;
+            level = SaveTimer.saveData.levelFour;
+            isRunning = SaveTimer.saveData.isRunningFour;
+            timeWhenStart = SaveTimer.saveData.timeWhenStartFour;
+            timeModifier = SaveTimer.saveData.timeModifierFour;
         }
 
         if (level == 0)
@@ -81,7 +79,7 @@ public class THREE : MonoBehaviour
 
     void Update()
     {
-        if (money.money >= upgradePrice)
+        if (Money.money >= upgradePrice)
             upgradeButton.interactable = true;
         else
             upgradeButton.interactable = false;
@@ -101,7 +99,7 @@ public class THREE : MonoBehaviour
         if (slider.value >= slider.maxValue)
         {
             isRunning = false;
-            money.money += profitPerUnit * level;
+            Money.money += profitPerUnit * level;
         }
 
         else if (slider.value < slider.maxValue)
@@ -135,10 +133,10 @@ public class THREE : MonoBehaviour
         if (level >= 51200)
             return;
 
-        if (money.money - (basePrice * System.Math.Pow(priceIncreaseModifier, level)) < 0)
+        if (Money.money - (basePrice * System.Math.Pow(priceIncreaseModifier, level)) < 0)
             return;
 
-        money.money -= (basePrice * System.Math.Pow(priceIncreaseModifier, level));
+        Money.money -= (basePrice * System.Math.Pow(priceIncreaseModifier, level));
         level++;
 
         if (level == 1)
