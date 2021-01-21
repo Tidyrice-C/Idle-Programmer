@@ -9,11 +9,6 @@ public class SaveTimer : MonoBehaviour
 
     public static SaveData saveData;
 
-    public ONE one;
-    public TWO two;
-    public THREE three;
-    public FOUR four;
-
     private void Awake()
     {
         saveData = SaveSystem.LoadData();
@@ -40,6 +35,6 @@ public class SaveTimer : MonoBehaviour
 
         //else
         lastSavedTime = currentTime;
-        SaveSystem.SaveAll(one, two, three, four);
+        SaveSystem.SaveAll();
     }
 }

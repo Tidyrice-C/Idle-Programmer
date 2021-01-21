@@ -25,10 +25,15 @@ public class FOUR : MonoBehaviour
     private readonly float priceIncreaseModifier = 1.13f;
     private readonly float profitPerUnit = 342069f;
 
-    [HideInInspector] public bool isRunning = false;
-    [HideInInspector] public double timeWhenStart;
-    [HideInInspector] public int level;
-    [HideInInspector] public float timeModifier;
+    [HideInInspector] public static bool isRunning = false;
+    [HideInInspector] public static double timeWhenStart;
+    [HideInInspector] public static int level;
+    [HideInInspector] public static float timeModifier;
+
+    private double netProfit;
+
+    //FROM UPGRADES
+    [HideInInspector] public static float profitModifier;
 
     // Start is called before the first frame update
     void Start()
@@ -40,6 +45,7 @@ public class FOUR : MonoBehaviour
         {
             level = 0;
             timeModifier = levelOneTimeModifier;
+            profitModifier = 1;
         }
         else
         {
@@ -47,6 +53,7 @@ public class FOUR : MonoBehaviour
             isRunning = SaveTimer.saveData.isRunningFour;
             timeWhenStart = SaveTimer.saveData.timeWhenStartFour;
             timeModifier = SaveTimer.saveData.timeModifierFour;
+            profitModifier = SaveTimer.saveData.profitModifierFour;
         }
 
         if (level == 0)
@@ -71,10 +78,12 @@ public class FOUR : MonoBehaviour
             upgradeText.text = "Max";
         }
 
-        if (profitPerUnit * level < 999999999.99)
-            profitText.text = $"{profitPerUnit * level:C}";
+        netProfit = profitPerUnit * profitModifier * level;
+
+        if (netProfit < 999999999.99)
+            profitText.text = $"{netProfit:C}";
         else
-            profitText.text = $"${profitPerUnit * level:E}";
+            profitText.text = $"${netProfit:E}";
     }
 
     void Update()
@@ -99,7 +108,7 @@ public class FOUR : MonoBehaviour
         if (slider.value >= slider.maxValue)
         {
             isRunning = false;
-            Money.money += profitPerUnit * level;
+            Money.money += netProfit;
         }
 
         else if (slider.value < slider.maxValue)
@@ -164,10 +173,12 @@ public class FOUR : MonoBehaviour
             upgradeText.text = "Max";
         }
 
-        if (profitPerUnit * level < 999999999.99)
-            profitText.text = $"{profitPerUnit * level:C}";
+        netProfit = profitPerUnit * profitModifier * level;
+
+        if (netProfit < 999999999.99)
+            profitText.text = $"{netProfit:C}";
         else
-            profitText.text = $"${profitPerUnit * level:E}";
+            profitText.text = $"${netProfit:E}";
     }
 
 }

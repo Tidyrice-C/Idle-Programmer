@@ -12,45 +12,50 @@ public class SaveData
     public bool isRunningOne;
     public double timeWhenStartOne;
     public float timeModifierOne;
+    public float profitModifierOne;
 
     public int levelTwo;
     public bool isRunningTwo;
     public double timeWhenStartTwo;
     public float timeModifierTwo;
+    public float profitModifierTwo;
 
     public int levelThree;
     public bool isRunningThree;
     public double timeWhenStartThree;
     public float timeModifierThree;
+    public float profitModifierThree;
 
     public int levelFour;
     public bool isRunningFour;
     public double timeWhenStartFour;
     public float timeModifierFour;
+    public float profitModifierFour;
 
-    public SaveData (ONE one, TWO two, THREE three, FOUR four)
+    public SaveData ()
     {
         money = Money.money;
 
-        levelOne = one.level;
-        isRunningOne = one.isRunning;
-        timeWhenStartOne = one.timeWhenStart;
-        timeModifierOne = one.timeModifier;
+        levelOne = ONE.level;
+        isRunningOne = ONE.isRunning;
+        timeWhenStartOne = ONE.timeWhenStart;
+        timeModifierOne = ONE.timeModifier;
+        profitModifierOne = ONE.profitModifier;
 
-        levelTwo = two.level;
-        isRunningTwo = two.isRunning;
-        timeWhenStartTwo = two.timeWhenStart;
-        timeModifierTwo = two.timeModifier;
+        levelTwo = TWO.level;
+        isRunningTwo = TWO.isRunning;
+        timeWhenStartTwo = TWO.timeWhenStart;
+        timeModifierTwo = TWO.timeModifier;
 
-        levelThree = three.level;
-        isRunningThree = three.isRunning;
-        timeWhenStartThree = three.timeWhenStart;
-        timeModifierThree = three.timeModifier;
+        levelThree = THREE.level;
+        isRunningThree = THREE.isRunning;
+        timeWhenStartThree = THREE.timeWhenStart;
+        timeModifierThree = THREE.timeModifier;
 
-        levelFour = four.level;
-        isRunningFour = four.isRunning;
-        timeWhenStartFour = four.timeWhenStart;
-        timeModifierFour = four.timeModifier;
+        levelFour = FOUR.level;
+        isRunningFour = FOUR.isRunning;
+        timeWhenStartFour = FOUR.timeWhenStart;
+        timeModifierFour = FOUR.timeModifier;
 
     }
 }
