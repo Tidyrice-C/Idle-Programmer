@@ -9,14 +9,6 @@ public class LevelLoader : MonoBehaviour
     private CanvasGroup canvasGroup;
     public float transitionTime = 0.5f;
 
-    private void Awake()
-    {
-        GameObject[] doNotDestroy = GameObject.FindGameObjectsWithTag("DoNotDestroy");
-
-        for (int i = 0; i < doNotDestroy.Length; i++)
-        DontDestroyOnLoad(doNotDestroy[i]);
-    }
-
     private void Start()
     {
         canvasGroup = GetComponent<CanvasGroup>();

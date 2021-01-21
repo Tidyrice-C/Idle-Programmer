@@ -10,7 +10,6 @@ public class DispMoney : MonoBehaviour
     void Start()
     {
         moneyText = GetComponent<TMPro.TextMeshProUGUI>();
-        Debug.Log("Start");
     }
 
     // Update is called once per frame
