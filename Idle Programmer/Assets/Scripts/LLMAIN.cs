@@ -22,8 +22,12 @@ public class LLMAIN : MonoBehaviour
         canvasGroup = GetComponent<CanvasGroup>();
         canvasGroup.blocksRaycasts = false;
 
-        if (GameObject.FindGameObjectsWithTag("DoNotDestroy").Length > 1)
+        if (GameObject.FindGameObjectsWithTag("DoNotDestroy").Length > 2)
+        {
             Destroy(GameObject.FindGameObjectsWithTag("DoNotDestroy")[0]);
+            Destroy(GameObject.FindGameObjectsWithTag("DoNotDestroy")[1]);
+
+        }
     }
     public void LoadLevel(int levelIndex)
     {

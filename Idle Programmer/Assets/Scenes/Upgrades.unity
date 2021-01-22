@@ -1186,6 +1186,7 @@ GameObject:
   - component: {fileID: 258861722}
   - component: {fileID: 258861721}
   - component: {fileID: 258861720}
+  - component: {fileID: 258861723}
   m_Layer: 5
   m_Name: Buy Button
   m_TagString: Untagged
@@ -1293,6 +1294,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 258861718}
   m_CullTransparentMesh: 0
+--- !u!114 &258861723
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 258861718}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4ad2c8d00f6906f488705bbf02ffee33, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  buyPrice: 100000
+  serializeID: HTML#1
 --- !u!1 &273507694
 GameObject:
   m_ObjectHideFlags: 0
@@ -1351,7 +1366,7 @@ MonoBehaviour:
       m_Calls: []
   m_text: 'Learn
 
-    $100,000,000'
+    $0'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: be0574161ed005a43bee4d318cdb422e, type: 2}
   m_sharedMaterial: {fileID: -6388021047516842060, guid: be0574161ed005a43bee4d318cdb422e,
@@ -1574,7 +1589,7 @@ GameObject:
   - component: {fileID: 293512269}
   - component: {fileID: 293512270}
   m_Layer: 5
-  m_Name: JAVA #1
+  m_Name: JAVA#1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2164,7 +2179,7 @@ MonoBehaviour:
       m_Calls: []
   m_text: 'Learn
 
-    $100,000,000'
+    $0'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: be0574161ed005a43bee4d318cdb422e, type: 2}
   m_sharedMaterial: {fileID: -6388021047516842060, guid: be0574161ed005a43bee4d318cdb422e,
@@ -3761,49 +3776,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 795227233}
   m_CullTransparentMesh: 0
---- !u!1 &828102734
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 828102736}
-  - component: {fileID: 828102735}
-  m_Layer: 0
-  m_Name: SaveSystem
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 4294967295
-  m_IsActive: 1
---- !u!114 &828102735
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 828102734}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 29f9a0fbc8839864a9ad0ecbc0211f89, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!4 &828102736
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 828102734}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0, y: 0, z: 0}
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &869836789
 GameObject:
   m_ObjectHideFlags: 0
@@ -4126,6 +4098,7 @@ GameObject:
   - component: {fileID: 925005599}
   - component: {fileID: 925005598}
   - component: {fileID: 925005597}
+  - component: {fileID: 925005600}
   m_Layer: 5
   m_Name: Buy Button
   m_TagString: Untagged
@@ -4233,6 +4206,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 925005595}
   m_CullTransparentMesh: 0
+--- !u!114 &925005600
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 925005595}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4ad2c8d00f6906f488705bbf02ffee33, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  buyPrice: 1000000
+  serializeID: JS#1
 --- !u!1 &926149638
 GameObject:
   m_ObjectHideFlags: 0
@@ -4318,7 +4305,7 @@ GameObject:
   - component: {fileID: 945685885}
   - component: {fileID: 945685886}
   m_Layer: 5
-  m_Name: JS #1
+  m_Name: JS#1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5016,6 +5003,62 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1108750878}
   m_CullTransparentMesh: 0
+--- !u!1 &1125530145
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1125530148}
+  - component: {fileID: 1125530146}
+  - component: {fileID: 1125530147}
+  m_Layer: 0
+  m_Name: SaveSystem
+  m_TagString: DoNotDestroy
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 4294967295
+  m_IsActive: 1
+--- !u!114 &1125530146
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1125530145}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f50f6ca70b76fea4085a48b8f2a57d73, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1125530147
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1125530145}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a3a38e8896547c041b0a632629547110, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!4 &1125530148
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1125530145}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 0, y: 0, z: 0}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1126330574
 GameObject:
   m_ObjectHideFlags: 0
@@ -6238,7 +6281,7 @@ MonoBehaviour:
       m_Calls: []
   m_text: 'Learn
 
-    $100,000,000'
+    $0'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: be0574161ed005a43bee4d318cdb422e, type: 2}
   m_sharedMaterial: {fileID: -6388021047516842060, guid: be0574161ed005a43bee4d318cdb422e,
@@ -6461,7 +6504,7 @@ GameObject:
   - component: {fileID: 1598002464}
   - component: {fileID: 1598002465}
   m_Layer: 5
-  m_Name: HTML #1
+  m_Name: HTML#1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -7020,7 +7063,7 @@ GameObject:
   - component: {fileID: 1693805474}
   - component: {fileID: 1693805475}
   m_Layer: 5
-  m_Name: PYTHON #1
+  m_Name: PYTHON#1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -8127,7 +8170,7 @@ MonoBehaviour:
       m_Calls: []
   m_text: 'Learn
 
-    $100,000,000'
+    $0'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: be0574161ed005a43bee4d318cdb422e, type: 2}
   m_sharedMaterial: {fileID: -6388021047516842060, guid: be0574161ed005a43bee4d318cdb422e,

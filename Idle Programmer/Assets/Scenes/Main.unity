@@ -208,7 +208,7 @@ GameObject:
   - component: {fileID: 49426194}
   m_Layer: 0
   m_Name: SaveSystem
-  m_TagString: Untagged
+  m_TagString: DoNotDestroy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
@@ -225,10 +225,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6d018a5262053034ba6d21304388cd13, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  one: {fileID: 1892956825}
-  two: {fileID: 1918791874}
-  three: {fileID: 190402660}
-  four: {fileID: 1365650925}
 --- !u!4 &49426193
 Transform:
   m_ObjectHideFlags: 0
@@ -843,10 +839,6 @@ MonoBehaviour:
   upgradeText: {fileID: 55262251}
   timeText: {fileID: 1983018758}
   profitText: {fileID: 1300298283}
-  isRunning: 0
-  timeWhenStart: 0
-  level: 0
-  timeModifier: 0
 --- !u!95 &190402661
 Animator:
   serializedVersion: 3
@@ -4186,10 +4178,6 @@ MonoBehaviour:
   upgradeText: {fileID: 1257071747}
   timeText: {fileID: 710224544}
   profitText: {fileID: 1979636747}
-  isRunning: 0
-  timeWhenStart: 0
-  level: 0
-  timeModifier: 0
 --- !u!95 &1365650926
 Animator:
   serializedVersion: 3
@@ -6465,10 +6453,6 @@ MonoBehaviour:
   upgradeText: {fileID: 1640347717}
   timeText: {fileID: 1469830740}
   profitText: {fileID: 847865863}
-  isRunning: 0
-  timeWhenStart: 0
-  level: 0
-  timeModifier: 0
 --- !u!95 &1892956826
 Animator:
   serializedVersion: 3
@@ -7125,10 +7109,6 @@ MonoBehaviour:
   upgradeText: {fileID: 1566380853}
   timeText: {fileID: 895821587}
   profitText: {fileID: 670436022}
-  isRunning: 0
-  timeWhenStart: 0
-  level: 0
-  timeModifier: 0
 --- !u!1 &1979636746
 GameObject:
   m_ObjectHideFlags: 0

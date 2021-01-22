@@ -1,8 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
-[System.Serializable]
+﻿[System.Serializable]
 public class SaveData
 {
 
@@ -46,16 +42,19 @@ public class SaveData
         isRunningTwo = TWO.isRunning;
         timeWhenStartTwo = TWO.timeWhenStart;
         timeModifierTwo = TWO.timeModifier;
+        profitModifierTwo = TWO.profitModifier;
 
         levelThree = THREE.level;
         isRunningThree = THREE.isRunning;
         timeWhenStartThree = THREE.timeWhenStart;
         timeModifierThree = THREE.timeModifier;
+        profitModifierThree = THREE.profitModifier;
 
         levelFour = FOUR.level;
         isRunningFour = FOUR.isRunning;
         timeWhenStartFour = FOUR.timeWhenStart;
         timeModifierFour = FOUR.timeModifier;
+        profitModifierFour = FOUR.profitModifier;
 
     }
 }
