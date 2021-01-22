@@ -8,7 +8,7 @@ public class NormalPurchase : MonoBehaviour
     public float buyPrice;
     public string serializeID;
 
-    public static string idTag;
+    private static string idTag;
 
     private static bool hasBought;
 
@@ -20,15 +20,23 @@ public class NormalPurchase : MonoBehaviour
     {
         idTag = serializeID;
 
+        hasBought = SaveTrigger.upgradeData[idTag];
+
         button = GetComponent<Button>();
         text = GetComponentInChildren<TMPro.TextMeshProUGUI>();
+
+        if (hasBought)
+        {
+            button.interactable = false;
+            return;
+        }
 
         button.onClick.AddListener(OnClick);
 
         if (buyPrice <= 999999999)
-            text.text = $"Money\n${buyPrice}";
+            text.text = $"Learn\n${buyPrice}";
         else
-            text.text = $"Money\n${buyPrice:E}";
+            text.text = $"Learn\n${buyPrice:E}";
 
         if (Money.money < buyPrice)
             button.interactable = false;
@@ -44,7 +52,7 @@ public class NormalPurchase : MonoBehaviour
             button.interactable = false;
     }
 
-    void OnClick()
+    public void OnClick()
     {
         button.interactable = false;
         hasBought = true;

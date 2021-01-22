@@ -1256,7 +1256,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 258861721}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 258861723}
+        m_MethodName: OnClick
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &258861721
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1307,7 +1318,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   buyPrice: 100000
-  serializeID: HTML#1
+  serializeID: N1
 --- !u!1 &273507694
 GameObject:
   m_ObjectHideFlags: 0
@@ -1590,7 +1601,7 @@ GameObject:
   - component: {fileID: 293512270}
   m_Layer: 5
   m_Name: JAVA#1
-  m_TagString: Untagged
+  m_TagString: NormalUpgrades
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -4219,7 +4230,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   buyPrice: 1000000
-  serializeID: JS#1
+  serializeID: N2
 --- !u!1 &926149638
 GameObject:
   m_ObjectHideFlags: 0
@@ -4306,7 +4317,7 @@ GameObject:
   - component: {fileID: 945685886}
   m_Layer: 5
   m_Name: JS#1
-  m_TagString: Untagged
+  m_TagString: NormalUpgrades
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -6505,7 +6516,7 @@ GameObject:
   - component: {fileID: 1598002465}
   m_Layer: 5
   m_Name: HTML#1
-  m_TagString: Untagged
+  m_TagString: NormalUpgrades
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -7064,7 +7075,7 @@ GameObject:
   - component: {fileID: 1693805475}
   m_Layer: 5
   m_Name: PYTHON#1
-  m_TagString: Untagged
+  m_TagString: NormalUpgrades
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

@@ -6,6 +6,7 @@ TagManager:
   tags:
   - DoNotDestroy
   - GlobalMoney
+  - NormalUpgrades
   layers:
   - Default
   - TransparentFX
