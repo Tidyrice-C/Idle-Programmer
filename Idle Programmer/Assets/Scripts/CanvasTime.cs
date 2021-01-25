@@ -11,15 +11,6 @@ public class CanvasTime : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.F11))
-        {
-            //if game is fullscreen
-            if (Screen.fullScreen)
-                Screen.fullScreenMode = FullScreenMode.Windowed;
-            else
-                Screen.fullScreenMode = FullScreenMode.MaximizedWindow;
-        }
-
         UpdateUnixTime();
     }
 

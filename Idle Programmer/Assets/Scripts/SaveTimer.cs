@@ -4,8 +4,6 @@ using UnityEngine;
 
 public class SaveTimer : MonoBehaviour
 {
-    private double currentTime;
-    private double lastSavedTime;
 
     public static SaveData saveData;
 
@@ -16,25 +14,11 @@ public class SaveTimer : MonoBehaviour
         Application.targetFrameRate = 60;
     }
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        lastSavedTime = CanvasTime.unixTime;
-        currentTime = lastSavedTime;
-
-        //money = gameObject.AddComponent<Money>();
-        //one = gameObject.AddComponent<ONE>();
-    }
-
     private void Update()
     {
-        currentTime = CanvasTime.unixTime;
-
-        if (currentTime - lastSavedTime < 1000)
+        if (Time.frameCount % 30 != 0)
             return;
 
-        //else
-        lastSavedTime = currentTime;
         SaveSystem.SaveAll();
     }
 }

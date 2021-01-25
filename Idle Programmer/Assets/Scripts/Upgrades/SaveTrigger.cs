@@ -35,7 +35,7 @@ public class SaveTrigger : MonoBehaviour
     public static void OnPurchase(string ID)
     {
         upgradeData[ID] = true;
-        Debug.Log(ID);
         SSUpgrades.SaveAll();
+        SaveSystem.SaveAll();
     }
 }

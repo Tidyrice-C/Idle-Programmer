@@ -1,61 +1,89 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
 
 public class ONE : MonoBehaviour
 {
-    public GameObject sliderObject;
     private Slider slider;
+    private Button button;
+    private Button upgradeButton;
 
-    public Button upgradeButton;
-
-    public TMPro.TextMeshProUGUI levelText;
-    public TMPro.TextMeshProUGUI upgradeText;
-    public TMPro.TextMeshProUGUI timeText;
-    public TMPro.TextMeshProUGUI profitText;
+    private TMPro.TextMeshProUGUI profitText;
+    private TMPro.TextMeshProUGUI levelText;
+    private TMPro.TextMeshProUGUI upgradeText;
+    private TMPro.TextMeshProUGUI timeText;
 
     private double currentTime;
     private double upgradePrice;
     private double toComplete;
 
-    private readonly float basePrice = 3.64f;
-    private readonly float levelOneTimeModifier = 0.1f;
-    private readonly float priceIncreaseModifier = 1.07f;
-    private readonly float profitPerUnit = 1.00f;
+    public int startLevel;
+    public float basePrice;
+    public float levelOneTimeModifier;
+    public float priceIncreaseModifier;
+    public float profitPerUnit;
 
-    [HideInInspector] public static bool isRunning = false;
+    private static bool isRunning = false;
     [HideInInspector] public static double timeWhenStart;
     [HideInInspector] public static int level;
     [HideInInspector] public static float timeModifier;
 
     private double netProfit;
-    
+
     //FROM UPGRADES
     [HideInInspector] public static float profitModifier;
+
+    //FROM EXECUTIVES
+    [HideInInspector] public static bool automated;
 
     // Start is called before the first frame update
     void Start()
     {
-        slider = sliderObject.GetComponent<Slider>();
+        Button[] buttons = GetComponentsInChildren<Button>();
+        TMPro.TextMeshProUGUI[] texts = GetComponentsInChildren<TMPro.TextMeshProUGUI>();
 
-        if (SaveTimer.saveData == null)
-        {
-            level = 1;
-            timeModifier = levelOneTimeModifier;
-            profitModifier = 1;
-        }
-        else
+        slider = GetComponentInChildren<Slider>();
+
+        button = buttons[0];
+        button.onClick.AddListener(OnClick);
+
+        upgradeButton = buttons[1];
+        upgradeButton.onClick.AddListener(OnBuy);
+
+        profitText = texts[0];
+        levelText = texts[1];
+        upgradeText = texts[2];
+        timeText = texts[3];
+
+        try
         {
             level = SaveTimer.saveData.levelOne;
-            isRunning = SaveTimer.saveData.isRunningOne;
             timeWhenStart = SaveTimer.saveData.timeWhenStartOne;
             timeModifier = SaveTimer.saveData.timeModifierOne;
             profitModifier = SaveTimer.saveData.profitModifierOne;
+            automated = SaveTimer.saveData.automatedOne;
+        }
+        catch
+        {
+            level = startLevel;
+            timeWhenStart = -1;
+            timeModifier = levelOneTimeModifier;
+            profitModifier = 1;
+            automated = false;
         }
 
-        //figuring out time modifier based on level
-        toComplete = timeWhenStart + 100 / timeModifier;
+        if (timeWhenStart != -1)
+        {
+            isRunning = true;
+            toComplete = timeWhenStart + (100 / timeModifier);
+        }
+
+        //ADD CODE HERE AT SCHOOL PLEASE CHENEY SEE THIS WE NEED TO MAKE IT WORK OFFLINE HIHIHIHIIHIIIIIIIIII
+        //ALSO TWO,THREE,AND FOUR ARE NOT UPDATED WITH ONE SO MAKE SURE TO UPDATE AFTER CHANGES ARE DONE :D LUV U BB
+        if (automated)
+            isRunning = true;
+
+        if (level == 0)
+            button.interactable = false;
 
         //upgrade price text
         upgradePrice = basePrice * System.Math.Pow(priceIncreaseModifier, level);
@@ -103,16 +131,31 @@ public class ONE : MonoBehaviour
         if (slider.value >= slider.maxValue)
         {
             isRunning = false;
+            slider.value = 0;
             Money.money += netProfit;
+            timeWhenStart = -1;
+            timeText.text = "00:00:00";
+            
+            if (automated)
+            {
+                isRunning = true;
+                timeWhenStart = CanvasTime.unixTime;
+                toComplete = timeWhenStart + 100 / timeModifier;
+            }
         }
 
-        else if (slider.value < slider.maxValue)
-            slider.value = (float) (timeDifference * timeModifier);
+        else if (slider.value < 100)
+            slider.value = (float)(timeDifference * timeModifier);
 
         double timeRemaining = toComplete - currentTime;
 
-        //executes three times every second (60 frames = 1 second)
-        if (timeRemaining > 0 && Time.frameCount % 10 == 0)
+        if (timeRemaining < 1000 && automated)
+        {
+            timeText.text = "00:00:00";
+            return;
+        }
+
+        if (timeRemaining >= 0)
         {
             string hours = System.Math.Floor(timeRemaining / 3600000).ToString();
             string minutes = System.Math.Floor(timeRemaining % 3600000 / 60000).ToString();
@@ -121,8 +164,7 @@ public class ONE : MonoBehaviour
         }
     }
 
-    //executes when image is clicked
-    public void onClick()
+    private void OnClick()
     {
         if (isRunning)
             return;
@@ -131,8 +173,7 @@ public class ONE : MonoBehaviour
         timeWhenStart = CanvasTime.unixTime;
         toComplete = timeWhenStart + 100 / timeModifier;
     }
-
-    public void onBuy()
+    private void OnBuy()
     {
         if (level >= 51200)
             return;
@@ -143,12 +184,14 @@ public class ONE : MonoBehaviour
         Money.money -= (basePrice * System.Math.Pow(priceIncreaseModifier, level));
         level++;
 
+        if (level == 1)
+            button.interactable = true;
+
         //figuring out time modifier based on level
         if (System.Array.IndexOf(CanvasTime.timesTwoLevels, level) != -1)
             timeModifier *= 2;
 
         toComplete = timeWhenStart + 100 / timeModifier;
-
 
         upgradePrice = basePrice * System.Math.Pow(priceIncreaseModifier, level);
         levelText.text = (level.ToString());
@@ -172,5 +215,9 @@ public class ONE : MonoBehaviour
         else
             profitText.text = $"${netProfit:E}";
     }
-    
+    public static void ManagerPurchase()
+    {
+        automated = true;
+        isRunning = true;
+    }
 }

@@ -6,11 +6,12 @@ using UnityEngine.UI;
 public class NormalPurchase : MonoBehaviour
 {
     public float buyPrice;
-    public string serializeID;
+    public string idTag;
 
-    private static string idTag;
+    public int targetModuleNumber;
+    public float multiplier;
 
-    private static bool hasBought;
+    private bool hasBought;
 
     private Button button;
     private TMPro.TextMeshProUGUI text;
@@ -18,8 +19,6 @@ public class NormalPurchase : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        idTag = serializeID;
-
         hasBought = SaveTrigger.upgradeData[idTag];
 
         button = GetComponent<Button>();
@@ -28,6 +27,9 @@ public class NormalPurchase : MonoBehaviour
         if (hasBought)
         {
             button.interactable = false;
+            text.fontSize = 40;
+            text.text = "LEARNT!";
+            text.color = new Color(0f, 0.55f, 0f);
             return;
         }
 
@@ -54,11 +56,37 @@ public class NormalPurchase : MonoBehaviour
 
     public void OnClick()
     {
-        button.interactable = false;
         hasBought = true;
+        button.interactable = false;
+        text.fontSize = 40;
+        text.text = "LEARNT!";
+        text.color = new Color(0f, 0.55f, 0f);
 
         Money.money -= buyPrice;
 
+        switch (targetModuleNumber)
+        {
+            case 1:
+                ONE.profitModifier *= multiplier;
+                break;
+            case 2:
+                TWO.profitModifier *= multiplier;
+                break;
+            case 3:
+                THREE.profitModifier *= multiplier;
+                break;
+            case 4:
+                FOUR.profitModifier *= multiplier;
+                break;
+            case 5:
+                break;
+            case 6:
+                break;
+            case 7:
+                break;
+            case 8:
+                break;
+        }
         SaveTrigger.OnPurchase(idTag);
     }
 }
