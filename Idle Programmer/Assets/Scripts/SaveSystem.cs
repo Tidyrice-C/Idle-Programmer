@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.IO;
+using UnityEngine.SceneManagement;
 
 public class SaveSystem : MonoBehaviour
 {
@@ -18,6 +19,29 @@ public class SaveSystem : MonoBehaviour
 
         stream.Close();
     }
+    public static void ResetSave ()
+    {
+        string path = Application.persistentDataPath + "/upgrades.json";
+        FileStream stream = new FileStream(path, FileMode.Create);
+
+        using (StreamWriter writer = new StreamWriter(stream))
+        {
+            writer.Write("");
+        }
+
+        path = Application.persistentDataPath + "/data.json";
+        stream = new FileStream(path, FileMode.Create);
+
+        using (StreamWriter writer = new StreamWriter(stream))
+        {
+            writer.Write("");
+        }
+
+        stream.Close();
+
+        SceneManager.LoadScene(0);
+
+    }
 
     public static SaveData LoadData()
     {
@@ -30,6 +54,8 @@ public class SaveSystem : MonoBehaviour
 
                 SaveData data;
 
+                reader.Close();
+
                 try
                 {
                     data = JsonUtility.FromJson<SaveData>(dataJSON);
@@ -37,6 +63,7 @@ public class SaveSystem : MonoBehaviour
                 catch 
                 {
                     Debug.Log("Error in try block in script SaveSystem");
+                    ResetSave();
                     return null;
                 }
                 return data;

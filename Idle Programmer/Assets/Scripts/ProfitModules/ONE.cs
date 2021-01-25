@@ -25,7 +25,7 @@ public class ONE : MonoBehaviour
     private static bool isRunning = false;
     [HideInInspector] public static double timeWhenStart;
     [HideInInspector] public static int level;
-    [HideInInspector] public static float timeModifier;
+    [HideInInspector] public static double timeModifier;
 
     private double netProfit;
 
@@ -54,6 +54,7 @@ public class ONE : MonoBehaviour
         upgradeText = texts[2];
         timeText = texts[3];
 
+        //checks if save file is corrupted 
         try
         {
             level = SaveTimer.saveData.levelOne;
@@ -69,7 +70,22 @@ public class ONE : MonoBehaviour
             timeModifier = levelOneTimeModifier;
             profitModifier = 1;
             automated = false;
+            SaveSystem.ResetSave();
         }
+
+        if (level < startLevel || timeModifier <= 0 || profitModifier < 1)
+        {
+            level = startLevel;
+            timeWhenStart = -1;
+            timeModifier = levelOneTimeModifier;
+            profitModifier = 1;
+            automated = false;
+            SaveSystem.ResetSave();
+        }
+
+        if (timeWhenStart >= CanvasTime.unixTime && timeWhenStart != -1)
+            timeWhenStart = -1;
+        //end of save file check ^^^;
 
         if (timeWhenStart != -1)
         {
@@ -77,10 +93,21 @@ public class ONE : MonoBehaviour
             toComplete = timeWhenStart + (100 / timeModifier);
         }
 
-        //ADD CODE HERE AT SCHOOL PLEASE CHENEY SEE THIS WE NEED TO MAKE IT WORK OFFLINE HIHIHIHIIHIIIIIIIIII
-        //ALSO TWO,THREE,AND FOUR ARE NOT UPDATED WITH ONE SO MAKE SURE TO UPDATE AFTER CHANGES ARE DONE :D LUV U BB
+        netProfit = profitPerUnit * profitModifier * level;
+
+        //Profit calculator for automated offline time
         if (automated)
+        {
             isRunning = true;
+            double timeElapsed = CanvasTime.unixTime - timeWhenStart;
+            double timePerCompletion = 100 / timeModifier;
+
+            double timesCompleted = System.Math.Floor(timeElapsed / timePerCompletion);
+            Money.money += netProfit * timesCompleted;
+
+            timeWhenStart = timeElapsed % timePerCompletion;
+        }
+        //end of automated check ^^
 
         if (level == 0)
             button.interactable = false;
@@ -100,8 +127,6 @@ public class ONE : MonoBehaviour
             upgradeButton.interactable = false;
             upgradeText.text = "Max";
         }
-
-        netProfit = profitPerUnit * profitModifier * level;
 
         if (netProfit < 999999999.99)
             profitText.text = $"{netProfit:C}";
@@ -130,17 +155,19 @@ public class ONE : MonoBehaviour
 
         if (slider.value >= slider.maxValue)
         {
-            isRunning = false;
-            slider.value = 0;
-            Money.money += netProfit;
-            timeWhenStart = -1;
-            timeText.text = "00:00:00";
-            
             if (automated)
             {
-                isRunning = true;
                 timeWhenStart = CanvasTime.unixTime;
                 toComplete = timeWhenStart + 100 / timeModifier;
+                slider.value = 0;
+                Money.money += netProfit;
+
+            } else {
+
+                isRunning = false;
+                slider.value = 0;
+                Money.money += netProfit;
+                timeWhenStart = -1;
             }
         }
 

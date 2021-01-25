@@ -5,7 +5,7 @@ public class SaveData
 
     public int levelOne;
     public double timeWhenStartOne;
-    public float timeModifierOne;
+    public double timeModifierOne;
     public float profitModifierOne;
     public bool automatedOne;
 

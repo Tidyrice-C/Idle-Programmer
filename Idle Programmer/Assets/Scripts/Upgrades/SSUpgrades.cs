@@ -31,13 +31,16 @@ public class SSUpgrades : MonoBehaviour
 
                 UpgradeData data;
 
+                reader.Close();
+
                 try
                 {
                     data = JsonUtility.FromJson<UpgradeData>(dataJSON);
                 }
                 catch
                 {
-                    Debug.Log("Error in try block in script SaveSystem Upgrades");
+                    Debug.Log("Error in try block in script SSUpgrades");
+                    SaveSystem.ResetSave();
                     return null;
                 }
                 return data;
@@ -45,7 +48,7 @@ public class SSUpgrades : MonoBehaviour
         }
         else
         {
-            Debug.LogError("Save upgrade file not found in " + path + " generating new file");
+            SaveSystem.ResetSave();
             return null;
         }
     }
