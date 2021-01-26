@@ -6,8 +6,7 @@ public class UpgradeData
 
     public UpgradeData()
     {
-        N1 = SaveTrigger.upgradeData["N1"];
-        N2 = SaveTrigger.upgradeData["N2"];
+            N1 = SaveTrigger.upgradeData["N1"];
+            N2 = SaveTrigger.upgradeData["N2"];
     }
-
 }

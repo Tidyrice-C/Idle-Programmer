@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class SaveTrigger : MonoBehaviour
+
+    //YOULL HAVE TO MAKE PROFIT MODIFIER CALCULATE WHEN GAME IS LAUNCHED INSTEAD OF THROUGH JSON FILE TO AVOID TAMPERING CHENEY :)
 {
     public static UpgradeData upgradeDataJSON;
 

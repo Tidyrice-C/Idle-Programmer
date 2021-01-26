@@ -40,7 +40,6 @@ public class SaveSystem : MonoBehaviour
         stream.Close();
 
         SceneManager.LoadScene(0);
-
     }
 
     public static SaveData LoadData()

@@ -1616,7 +1616,7 @@ GameObject:
   - component: {fileID: 293512270}
   m_Layer: 5
   m_Name: JAVA#1
-  m_TagString: NormalUpgrades
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
@@ -7092,7 +7092,7 @@ GameObject:
   - component: {fileID: 1693805475}
   m_Layer: 5
   m_Name: PYTHON#1
-  m_TagString: NormalUpgrades
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
