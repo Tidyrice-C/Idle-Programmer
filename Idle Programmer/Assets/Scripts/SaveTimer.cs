@@ -4,13 +4,12 @@ using UnityEngine;
 
 public class SaveTimer : MonoBehaviour
 {
-
     public static SaveData saveData;
+    public static UpgradeData upgradeData;
 
     private void Awake()
     {
         saveData = SaveSystem.LoadData();
-
         Application.targetFrameRate = 60;
     }
 

@@ -70,9 +70,9 @@ public class ONE : MonoBehaviour
             timeModifier = levelOneTimeModifier;
             profitModifier = 1;
             automated = false;
-            SaveSystem.ResetSave();
         }
 
+        //tamper detection
         if (level < startLevel || timeModifier <= 0 || profitModifier < 1)
         {
             level = startLevel;
@@ -80,7 +80,6 @@ public class ONE : MonoBehaviour
             timeModifier = levelOneTimeModifier;
             profitModifier = 1;
             automated = false;
-            SaveSystem.ResetSave();
         }
 
         if (timeWhenStart >= CanvasTime.unixTime && timeWhenStart != -1)

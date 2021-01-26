@@ -14,13 +14,19 @@ public class SaveTrigger : MonoBehaviour
     {
         GameObject[] normalUpgrades = GameObject.FindGameObjectsWithTag("NormalUpgrades");
 
-        upgradeDataJSON = SSUpgrades.LoadData();
+        upgradeDataJSON = SaveSystem.LoadUpgradeData();
 
         if (upgradeDataJSON != null)
         {
             //INTERPRET EXISTING JSON FILE
             upgradeData["N1"] = upgradeDataJSON.N1;
             upgradeData["N2"] = upgradeDataJSON.N2;
+
+            //upgrade file integrity check
+            if (ONE.profitModifier != 1 && upgradeDataJSON.N1 == false)
+            {
+                SaveSystem.ResetUpgrades();
+            }
         } 
         else
         {
@@ -30,14 +36,14 @@ public class SaveTrigger : MonoBehaviour
                 upgradeData["N"+i] = false;
             }
 
-            SSUpgrades.SaveAll();
+            SaveSystem.ResetUpgrades();
         }
     }
 
     public static void OnPurchase(string ID)
     {
         upgradeData[ID] = true;
-        SSUpgrades.SaveAll();
         SaveSystem.SaveAll();
+        SaveSystem.SaveUpgrades();
     }
 }
