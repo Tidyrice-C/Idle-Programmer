@@ -25,7 +25,7 @@ public class FOUR : MonoBehaviour
     private static bool isRunning = false;
     [HideInInspector] public static double timeWhenStart;
     [HideInInspector] public static int level;
-    [HideInInspector] public static float timeModifier;
+    [HideInInspector] public static double timeModifier;
 
     private double netProfit;
 
@@ -54,6 +54,7 @@ public class FOUR : MonoBehaviour
         upgradeText = texts[2];
         timeText = texts[3];
 
+        //checks if save file is corrupted 
         try
         {
             level = SaveTimer.saveData.levelFour;
@@ -71,14 +72,41 @@ public class FOUR : MonoBehaviour
             automated = false;
         }
 
+        //tamper detection
+        if (level < startLevel || timeModifier <= 0 || profitModifier < 1)
+        {
+            level = startLevel;
+            timeWhenStart = -1;
+            timeModifier = levelOneTimeModifier;
+            profitModifier = 1;
+            automated = false;
+        }
+
+        if (timeWhenStart >= CanvasTime.unixTime && timeWhenStart != -1)
+            timeWhenStart = -1;
+        //end of save file check ^^^;
+
         if (timeWhenStart != -1)
         {
             isRunning = true;
             toComplete = timeWhenStart + (100 / timeModifier);
         }
 
-        if (automated)
+        netProfit = profitPerUnit * profitModifier * level;
+
+        //Profit calculator for automated offline time
+        if (automated && level > 0)
+        {
             isRunning = true;
+            double timeElapsed = CanvasTime.unixTime - timeWhenStart;
+            double timePerCompletion = 100 / timeModifier;
+
+            double timesCompleted = System.Math.Floor(timeElapsed / timePerCompletion);
+            Money.money += netProfit * timesCompleted;
+
+            timeWhenStart = timeElapsed % timePerCompletion;
+        }
+        //end of automated check ^^
 
         if (level == 0)
             button.interactable = false;
@@ -98,8 +126,6 @@ public class FOUR : MonoBehaviour
             upgradeButton.interactable = false;
             upgradeText.text = "Max";
         }
-
-        netProfit = profitPerUnit * profitModifier * level;
 
         if (netProfit < 999999999.99)
             profitText.text = $"{netProfit:C}";
@@ -128,20 +154,25 @@ public class FOUR : MonoBehaviour
 
         if (slider.value >= slider.maxValue)
         {
-            if (!automated)
+            if (automated)
             {
+                timeWhenStart = CanvasTime.unixTime;
+                toComplete = timeWhenStart + 100 / timeModifier;
+                slider.value = 0;
+                Money.money += netProfit;
+
+            }
+            else
+            {
+
                 isRunning = false;
                 slider.value = 0;
                 Money.money += netProfit;
                 timeWhenStart = -1;
-                timeText.text = "00:00:00";
-                return;
             }
-            else
-                Automated();
         }
 
-        else if (slider.value < slider.maxValue)
+        else if (slider.value < 100)
             slider.value = (float)(timeDifference * timeModifier);
 
         double timeRemaining = toComplete - currentTime;
@@ -152,21 +183,13 @@ public class FOUR : MonoBehaviour
             return;
         }
 
-
-        string hours = System.Math.Floor(timeRemaining / 3600000).ToString();
-        string minutes = System.Math.Floor(timeRemaining % 3600000 / 60000).ToString();
-        string seconds = System.Math.Ceiling(timeRemaining % 3600000 % 60000 / 1000).ToString();
-        timeText.text = $"{hours.PadLeft(2, '0')}:{minutes.PadLeft(2, '0')}:{seconds.PadLeft(2, '0')}";
-    }
-
-    private void Automated()
-    {
-        slider.value = 0;
-        Money.money += netProfit;
-        timeWhenStart = CanvasTime.unixTime;
-        toComplete = timeWhenStart + 100 / timeModifier;
-        timeText.text = "00:00:00";
-        return;
+        if (timeRemaining >= 0)
+        {
+            string hours = System.Math.Floor(timeRemaining / 3600000).ToString();
+            string minutes = System.Math.Floor(timeRemaining % 3600000 / 60000).ToString();
+            string seconds = System.Math.Ceiling(timeRemaining % 3600000 % 60000 / 1000).ToString();
+            timeText.text = $"{hours.PadLeft(2, '0')}:{minutes.PadLeft(2, '0')}:{seconds.PadLeft(2, '0')}";
+        }
     }
 
     private void OnClick()
@@ -191,6 +214,9 @@ public class FOUR : MonoBehaviour
 
         if (level == 1)
             button.interactable = true;
+
+        if (level == 1 && automated)
+            OnClick();
 
         //figuring out time modifier based on level
         if (System.Array.IndexOf(CanvasTime.timesTwoLevels, level) != -1)
@@ -223,7 +249,7 @@ public class FOUR : MonoBehaviour
     public static void ManagerPurchase()
     {
         automated = true;
-        isRunning = true;
+        if (level > 0)
+            isRunning = true;
     }
 }
-

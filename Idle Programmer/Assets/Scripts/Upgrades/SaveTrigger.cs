@@ -23,20 +23,14 @@ public class SaveTrigger : MonoBehaviour
             upgradeData["N2"] = upgradeDataJSON.N2;
 
             //upgrade file integrity check
-            if (ONE.profitModifier != 1 && upgradeDataJSON.N1 == false)
+            if ((ONE.profitModifier != 1 && upgradeDataJSON.N1 == false) || (ONE.profitModifier == 1 && upgradeDataJSON.N1 == true))
             {
-                SaveSystem.ResetUpgrades();
+                GenerateFile(normalUpgrades);
             }
         } 
         else
         {
-            //GENERATE NEW FILE
-            for (int i = 1; i <= normalUpgrades.Length; i++)
-            {
-                upgradeData["N"+i] = false;
-            }
-
-            SaveSystem.ResetUpgrades();
+            GenerateFile(normalUpgrades);
         }
     }
 
@@ -44,6 +38,18 @@ public class SaveTrigger : MonoBehaviour
     {
         upgradeData[ID] = true;
         SaveSystem.SaveAll();
+        SaveSystem.SaveUpgrades();
+    }
+
+    private void GenerateFile(GameObject[] normalUpgrades)
+    {
+        //GENERATE NEW FILE
+        for (int i = 1; i <= normalUpgrades.Length; i++)
+        {
+            upgradeData["N" + i] = false;
+        }
+
+        SaveSystem.ResetUpgrades();
         SaveSystem.SaveUpgrades();
     }
 }

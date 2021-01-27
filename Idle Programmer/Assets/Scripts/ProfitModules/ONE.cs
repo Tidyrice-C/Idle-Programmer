@@ -95,7 +95,7 @@ public class ONE : MonoBehaviour
         netProfit = profitPerUnit * profitModifier * level;
 
         //Profit calculator for automated offline time
-        if (automated)
+        if (automated && level > 0)
         {
             isRunning = true;
             double timeElapsed = CanvasTime.unixTime - timeWhenStart;
@@ -213,6 +213,9 @@ public class ONE : MonoBehaviour
         if (level == 1)
             button.interactable = true;
 
+        if (level == 1 && automated)
+            OnClick();
+
         //figuring out time modifier based on level
         if (System.Array.IndexOf(CanvasTime.timesTwoLevels, level) != -1)
             timeModifier *= 2;
@@ -244,6 +247,7 @@ public class ONE : MonoBehaviour
     public static void ManagerPurchase()
     {
         automated = true;
-        isRunning = true;
+        if (level > 0)
+            isRunning = true;
     }
 }

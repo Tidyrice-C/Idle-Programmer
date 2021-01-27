@@ -11,19 +11,19 @@ public class SaveData
 
     public int levelTwo;
     public double timeWhenStartTwo;
-    public float timeModifierTwo;
+    public double timeModifierTwo;
     public float profitModifierTwo;
     public bool automatedTwo;
 
     public int levelThree;
     public double timeWhenStartThree;
-    public float timeModifierThree;
+    public double timeModifierThree;
     public float profitModifierThree;
     public bool automatedThree;
 
     public int levelFour;
     public double timeWhenStartFour;
-    public float timeModifierFour;
+    public double timeModifierFour;
     public float profitModifierFour;
     public bool automatedFour;
 
