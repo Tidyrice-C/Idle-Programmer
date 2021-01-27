@@ -332,7 +332,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 66046428}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1603734393}
+        m_MethodName: LoadLevel
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 4
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &66046428
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5606,10 +5617,10 @@ GameObject:
   m_Component:
   - component: {fileID: 1603734388}
   - component: {fileID: 1603734392}
-  - component: {fileID: 1603734391}
   - component: {fileID: 1603734390}
   - component: {fileID: 1603734389}
   - component: {fileID: 1603734393}
+  - component: {fileID: 1603734391}
   m_Layer: 5
   m_Name: LevelLoader
   m_TagString: Untagged
@@ -5680,7 +5691,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.24528301, g: 0.24528301, b: 0.24528301, a: 1}
+  m_Color: {r: 0.24705882, g: 0.24705882, b: 0.24705882, a: 1}
   m_RaycastTarget: 1
   m_Maskable: 1
   m_OnCullStateChanged:

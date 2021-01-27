@@ -102,7 +102,8 @@ public class TWO : MonoBehaviour
             double timePerCompletion = 100 / timeModifier;
 
             double timesCompleted = System.Math.Floor(timeElapsed / timePerCompletion);
-            Money.money += netProfit * timesCompleted;
+            Debug.Log(Money.money + netProfit * timesCompleted);
+            Money.money += (netProfit * timesCompleted);
 
             timeWhenStart = timeElapsed % timePerCompletion;
         }

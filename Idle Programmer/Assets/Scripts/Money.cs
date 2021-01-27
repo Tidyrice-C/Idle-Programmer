@@ -6,12 +6,8 @@ public class Money : MonoBehaviour
 {
     public static double money;
     private TMPro.TextMeshProUGUI text;
-
-    // Start is called before the first frame update
-    void Start()
+    private void Awake()
     {
-        text = gameObject.GetComponent<TMPro.TextMeshProUGUI>();
-
         if (SaveTimer.saveData == null)
         {
             money = 0.00;
@@ -19,6 +15,12 @@ public class Money : MonoBehaviour
         }
 
         money = SaveTimer.saveData.money;
+    }
+
+    // Start is called before the first frame update
+    void Start()
+    {
+        text = gameObject.GetComponent<TMPro.TextMeshProUGUI>();
     }
 
     // Update is called once per frame
