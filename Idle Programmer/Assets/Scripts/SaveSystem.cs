@@ -19,7 +19,6 @@ public class SaveSystem : MonoBehaviour
 
         stream.Close();
     }
-
     public static void SaveUpgrades()
     {
         string path = Application.persistentDataPath + "/upgrades.json";
@@ -35,7 +34,21 @@ public class SaveSystem : MonoBehaviour
 
         stream.Close();
     }
+    public static void SaveGameDev()
+    {
+        string path = Application.persistentDataPath + "/gamedev.json";
+        FileStream stream = new FileStream(path, FileMode.Create);
+        GameDevData gameDevData = new GameDevData();
 
+        string data = JsonUtility.ToJson(gameDevData, true);
+
+        using (StreamWriter writer = new StreamWriter(stream))
+        {
+            writer.Write(data);
+        }
+
+        stream.Close();
+    }
     public static void ResetSave ()
     {
         string path = Application.persistentDataPath + "/upgrades.json";
@@ -128,6 +141,37 @@ public class SaveSystem : MonoBehaviour
                 try
                 {
                     data = JsonUtility.FromJson<UpgradeData>(dataJSON);
+                }
+                catch
+                {
+                    Debug.Log("Error when loading upgradeData");
+                    return null;
+                }
+                return data;
+            }
+        }
+        else
+        {
+            Debug.LogError("Save file not found in " + path + " generating new file");
+            return null;
+        }
+    }
+    public static GameDevData LoadGameDevData()
+    {
+        string path = Application.persistentDataPath + "/gamedev.json";
+        if (File.Exists(path))
+        {
+            using (StreamReader reader = new StreamReader(path))
+            {
+                string dataJSON = reader.ReadToEnd();
+
+                GameDevData data;
+
+                reader.Close();
+
+                try
+                {
+                    data = JsonUtility.FromJson<GameDevData>(dataJSON);
                 }
                 catch
                 {
