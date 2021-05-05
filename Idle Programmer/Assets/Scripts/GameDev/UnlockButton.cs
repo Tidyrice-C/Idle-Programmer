@@ -8,7 +8,7 @@ public class UnlockButton : MonoBehaviour
     private Button button;
     private TMPro.TextMeshProUGUI text;
 
-    public static bool unlocked;
+    private bool unlocked;
     public double unlockPrice;
 
     // Start is called before the first frame update
@@ -18,7 +18,7 @@ public class UnlockButton : MonoBehaviour
         text = GetComponentInChildren<TMPro.TextMeshProUGUI>();
         button.onClick.AddListener(OnClick);
 
-        unlocked = GDSaveHub.GameDevData.unlocked;
+        unlocked = SaveTimer.unlocked;
 
         if (unlocked)
             button.interactable = false;
@@ -41,7 +41,10 @@ public class UnlockButton : MonoBehaviour
     {
         Money.money -= unlockPrice;
         button.interactable = false;
+        SaveTimer.unlocked = true;
         unlocked = true;
+        SaveSystem.SaveAll();
         SaveSystem.SaveGameDev();
+        PreUnlock.Unlocked();
     }
 }

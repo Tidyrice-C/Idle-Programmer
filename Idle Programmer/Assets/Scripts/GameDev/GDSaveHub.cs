@@ -7,6 +7,9 @@ public class GDSaveHub : MonoBehaviour
     public static GameDevData GameDevData;
     private void Awake()
     {
+        if (GameDevData == null || !SaveTimer.unlocked)
+            SaveSystem.SaveGameDev();
+
         GameDevData = SaveSystem.LoadGameDevData();
     }
 

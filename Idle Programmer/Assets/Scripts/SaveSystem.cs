@@ -93,7 +93,6 @@ public class SaveSystem : MonoBehaviour
 
         stream.Close();
     }
-
     public static SaveData LoadData()
     {
         string path = Application.persistentDataPath + "/data.json";
@@ -175,7 +174,7 @@ public class SaveSystem : MonoBehaviour
                 }
                 catch
                 {
-                    Debug.Log("Error when loading upgradeData");
+                    Debug.Log("Error when loading gameDevData");
                     return null;
                 }
                 return data;

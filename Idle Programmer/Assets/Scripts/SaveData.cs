@@ -2,6 +2,7 @@
 public class SaveData
 {
     public double money;
+    public bool unlocked;
 
     public int levelOne;
     public double timeWhenStartOne;
@@ -30,6 +31,7 @@ public class SaveData
     public SaveData ()
     {
         money = Money.money;
+        unlocked = SaveTimer.unlocked;
 
         levelOne = ONE.level;
         timeWhenStartOne = ONE.timeWhenStart;

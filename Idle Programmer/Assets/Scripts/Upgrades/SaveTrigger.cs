@@ -21,6 +21,8 @@ public class SaveTrigger : MonoBehaviour
             upgradeData["N2"] = upgradeDataJSON.N2;
 
             //upgrade file integrity check
+
+            //GOTTA ADD THE OTHER MODULES TOO ACHENCY AIDJCIADJOICWNDACNWDNCPAWDNCWPAL:UBDCPAWBPB DUAWBNCVPWUABDPIBACWPUDADUGWAUYDVOADVYWPVDA
             if ((ONE.profitModifier != 1 && upgradeDataJSON.N1 == false) || (ONE.profitModifier == 1 && upgradeDataJSON.N1 == true))
             {
                 GenerateFile(normalUpgrades);
